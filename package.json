@@ -1,0 +1,31 @@
+{
+  "name": "node-api-whatsapp-saas",
+  "version": "1.0.0",
+  "description": "API Gateway SaaS para automatización multi-inquilino de WhatsApp",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --ignore sessions server.js",
+    "start": "node server.js",
+    "instalar-chrome": "node node_modules/.pnpm/puppeteer@24.38.0/node_modules/puppeteer/install.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "whatsapp-web.js": "^1.34.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "puppeteer"
+    ]
+  }
+}

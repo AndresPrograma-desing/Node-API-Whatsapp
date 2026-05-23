@@ -1,0 +1,251 @@
+{
+	"info": {
+		"name": "Node API Whatsapp - Workspace Collection",
+		"description": "Coleccion creada desde el codigo fuente para probar endpoints de mensajes, sesiones y tenants.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_postman_id": "a5d8a67f-5479-4aa3-9dce-189254c3801d"
+	},
+	"item": [
+		{
+			"name": "Mensaje",
+			"item": [
+				{
+					"name": "Enviar factura PDF",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"numero\": \"{{numeroDestino}}\",\n  \"cliente\": \"Cliente Demo\",\n  \"pdfUrl\": \"{{pdfUrl}}\",\n  \"nombreEmpresa\": \"Happy Pets\",\n  \"mensaje\": \"Adjuntamos tu documento solicitado.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/send-invoice",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"send-invoice"
+							]
+						},
+						"description": "Envio de PDF por WhatsApp. Requiere numero, cliente, pdfUrl y nombreEmpresa."
+					}
+				},
+				{
+					"name": "Iniciar sesion tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"clientId\": \"{{clientId}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/init-session",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"init-session"
+							]
+						},
+						"description": "Arranca una sesion de WhatsApp para el clientId indicado."
+					}
+				},
+				{
+					"name": "Estado por clientId",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/status/{{clientId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"status",
+								"{{clientId}}"
+							]
+						},
+						"description": "Consulta el estado de una instancia tenant especifica."
+					}
+				},
+				{
+					"name": "Listar clientes",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/clients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"clients"
+							]
+						},
+						"description": "Obtiene todos los clientes registrados en DB."
+					}
+				}
+			]
+		},
+		{
+			"name": "Tenant",
+			"item": [
+				{
+					"name": "Registrar tenant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"{{tenantId}}\",\n  \"name\": \"{{tenantName}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/tenants/register-tenant",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"tenants",
+								"register-tenant"
+							]
+						},
+						"description": "Crea un nuevo tenant en la base de datos."
+					}
+				}
+			]
+		},
+		{
+			"name": "Sesion (solo si montas src/app.js)",
+			"item": [
+				{
+					"name": "Connect",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/connect",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"connect"
+							]
+						},
+						"description": "Disponible si usas el montaje definido en src/app.js con session.routes.js."
+					}
+				},
+				{
+					"name": "Status (session.controller)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "{{apiKey}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/WSMessage/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"WSMessage",
+								"status"
+							]
+						},
+						"description": "Disponible si usas el montaje definido en src/app.js con session.routes.js."
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3002"
+		},
+		{
+			"key": "apiKey",
+			"value": ""
+		},
+		{
+			"key": "clientId",
+			"value": "client_default_0"
+		},
+		{
+			"key": "numeroDestino",
+			"value": "580000000000"
+		},
+		{
+			"key": "pdfUrl",
+			"value": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+		},
+		{
+			"key": "tenantId",
+			"value": "happypets_01"
+		},
+		{
+			"key": "tenantName",
+			"value": "Happy Pets"
+		}
+	]
+}
