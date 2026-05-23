@@ -76,5 +76,6 @@ Para más detalles sobre cómo utilizar la API, puedes consultar la documentaci�
     - Email: ignacioangel671@gmail.com
     ]
     DATE: 2024-05-23
-
+## Extra
+  Ejecuta el archivo index.html que se encuantra en la ruta public\document\web\index.html para escanear el codigo QR que te devuelva el api
 ## final del README.md
