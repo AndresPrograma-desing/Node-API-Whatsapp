@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"numero\": \"{{numeroDestino}}\",\n  \"cliente\": \"Cliente Demo\",\n  \"pdfUrl\": \"{{pdfUrl}}\",\n  \"nombreEmpresa\": \"Happy Pets\",\n  \"mensaje\": \"Adjuntamos tu documento solicitado.\"\n}"
+							"raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"numero\": \"{{numeroDestino}}\",\n  \"cliente\": \"Cliente Demo\",\n  \"pdfUrl\": \"{{pdfUrl}}\",\n  \"nombreEmpresa\": \"Tu negocio name\",\n  \"mensaje\": \"Adjuntamos tu documento solicitado.\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/WSMessage/send-invoice",
