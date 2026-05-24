@@ -11,7 +11,8 @@ const KEEP_ALIVE_INTERVAL = 30 * 60 * 1000;
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-const clearChromiumLocks = async (clientId) => {
+const clearChromiumLocks = async (clientIdRaw) => {
+    const clientId = String(clientIdRaw).trim();
     const baseDir = `./sessions/storage-${clientId}/session`;
 
     const lockPaths = [
@@ -34,7 +35,8 @@ const clearChromiumLocks = async (clientId) => {
     }
 };
 
-const startKeepAlive = (clientId) => {
+const startKeepAlive = (clientIdRaw) => {
+    const clientId = String(clientIdRaw).trim();
     if (sessions[clientId]?.keepAliveTimer) {
         clearInterval(sessions[clientId].keepAliveTimer);
     }
@@ -60,7 +62,8 @@ const startKeepAlive = (clientId) => {
     }, KEEP_ALIVE_INTERVAL);
 };
 
-const destoySessionInstance = async (clientId) => {
+const destoySessionInstance = async (clientIdRaw) => {
+    const clientId = String(clientIdRaw).trim();
     const session = sessions[clientId];
     if (!session) return;
 
@@ -85,9 +88,13 @@ const destoySessionInstance = async (clientId) => {
     }, 10000);
 };
 
-export const getSession = (clientId) => sessions[clientId] || null;
+export const getSession = (clientIdRaw) => {
+    const clientId = String(clientIdRaw).trim();
+    return sessions[clientId] || null;
+};
 
-export const initSession = (clientId) => {
+export const initSession = (clientIdRaw) => {
+    const clientId = String(clientIdRaw).trim();
     if (sessions[clientId]) {
         return sessions[clientId];
     }
