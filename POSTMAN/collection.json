@@ -241,11 +241,11 @@
 		},
 		{
 			"key": "tenantId",
-			"value": "happypets_01"
+			"value": "your_business_id"
 		},
 		{
 			"key": "tenantName",
-			"value": "Happy Pets"
+			"value": "your_business_name"
 		}
 	]
 }
