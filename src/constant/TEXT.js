@@ -22,7 +22,7 @@ export const SYSTEM_CONFIG = {
 
 export const API_RESPONSES = {
     invoiceController: {
-        missingParameters: "Faltan parámetros obligatorios (numero, cliente, pdfUrl o nombreEmpresa).",
+        missingParameters: "Faltan parámetros obligatorios (numero, cliente, url o nombreEmpresa).",
         sendSuccess: "Mensaje de texto personalizado y PDF entregados de forma exitosa.",
         fetchError: "No se pudo descargar el archivo desde la URL. Status: ",
         serverError: "Error interno al procesar el envío en el servidor."

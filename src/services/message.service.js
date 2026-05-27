@@ -11,17 +11,17 @@ const cleanPhoneNumber = (number) => {
 };
 
 export const processAndSendInvoice = async (clientId, payload) => {
-    const { numero, cliente, pdfUrl, nombreEmpresa, mensaje } = payload;
+    const { numero, cliente, url: url, nombreEmpresa, mensaje } = payload;
     const numeroNormalizado = cleanPhoneNumber(numero);
 
-    const respuesta = await fetch(pdfUrl);
+    const respuesta = await fetch(url);
     if (!respuesta.ok) {
         throw new Error(respuesta.status);
     }
 
     const mimeType = respuesta.headers.get('content-type') || 'application/octet-stream';
 
-    const parsedUrl = new URL(pdfUrl);
+    const parsedUrl = new URL(url);
     const pathSegments = parsedUrl.pathname.split('/');
     let nombreArchivo = pathSegments[pathSegments.length - 1];
 
