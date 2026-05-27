@@ -46,7 +46,7 @@ export const getAllClients = async () => {
     try {
         const { data, error } = await supabase
             .from('tenants') 
-            .select('id, name, api_key, created_at') 
+            .select('id, name, created_at') 
             .order('created_at', { ascending: false }); 
 
         if (error) {

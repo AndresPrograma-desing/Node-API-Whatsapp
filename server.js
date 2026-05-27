@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import routerMedicos from './src/routes/message.routes.js';
 import routerTenants from './src/routes/tenant.routes.js';
+import { authenticateApiKey } from './src/middlewares/auth.middleware.js';
 import { initSession } from './src/services/whatsapp.manager.js';
 import { getAllClients } from './src/config/database.js'; 
 import { SYSTEM_CONFIG } from './src/constant/TEXT.js';
@@ -13,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api/WSMessage', routerMedicos);
+app.use('/api/WSMessage', authenticateApiKey, routerMedicos);
 app.use('/api/WSMessage/tenants', routerTenants); 
 
 
