@@ -86,3 +86,28 @@ export const createNewTenant = async (id, name, apiKey) => {
         return null;
     }
 };
+
+/**
+ * @param {string} clientId
+ * @param {string} apiKey
+ * @returns {boolean}
+ */
+export const doesApiKeyBelongToClient = async (clientId, apiKey) => {
+    try {
+        const { data, error } = await supabase
+            .from('tenants')
+            .select('id')
+            .eq('id', clientId)
+            .eq('api_key', apiKey)
+            .single();
+
+        if (error) {
+            if (error.code === 'PGRST116') return false;
+            throw error;
+        }
+
+        return Boolean(data);
+    } catch (_err) {
+        return false;
+    }
+};

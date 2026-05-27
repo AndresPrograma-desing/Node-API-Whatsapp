@@ -2,7 +2,7 @@ import { processDispatchInvoice } from '../services/message.service.js';
 import { API_RESPONSES } from '../constant/TEXT.js'; 
 
 export const dispatchInvoice = async (req, res) => {
-    const clientId = req.body.clientId || req.clientId || SYSTEM_CONFIG.DEFAULT_CLIENT_ID;
+    const clientId = req.clientId;
     const { numero, cliente, archivoBase64 } = req.body;
   
     if (!numero || !archivoBase64 || !cliente) {
