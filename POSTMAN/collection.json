@@ -26,7 +26,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"numero\": \"{{numeroDestino}}\",\n  \"cliente\": \"Cliente Demo\",\n  \"pdfUrl\": \"{{pdfUrl}}\",\n  \"nombreEmpresa\": \"Tu negocio name\",\n  \"mensaje\": \"Adjuntamos tu documento solicitado.\"\n}"
+							"raw": "{\n  \"clientId\": \"{{clientId}}\",\n  \"numero\": \"{{numeroDestino}}\",\n  \"cliente\": \"Cliente Demo\",\n  \"pdfUrl\": \"https://github.com/AndresPrograma-desing/Node-API-Whatsapp/raw/refs/heads/main/public/document/pdf/PDF_WSM_demo_v1.pdf\",\n  \"nombreEmpresa\": \"Tu negocio name\",\n  \"mensaje\": \"Adjuntamos tu documento solicitado.\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/api/WSMessage/send-invoice",
@@ -221,7 +221,7 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://localhost:3002"
+			"value": "http://localhost:3000"
 		},
 		{
 			"key": "apiKey",
@@ -237,7 +237,7 @@
 		},
 		{
 			"key": "pdfUrl",
-			"value": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf"
+			"value": "https://github.com/AndresPrograma-desing/Node-API-Whatsapp/raw/refs/heads/main/public/document/pdf/PDF_WSM_demo_v1.pdf"
 		},
 		{
 			"key": "tenantId",
