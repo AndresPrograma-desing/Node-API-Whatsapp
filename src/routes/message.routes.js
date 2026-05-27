@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import { processAndSendInvoice, startTenantSession, checkTenantStatus, fetchAllRegisteredClients } from '../services/message.service.js';
-import { API_RESPONSES, SYSTEM_CONFIG } from '../constant/TEXT.js';
+import { API_RESPONSES } from '../constant/TEXT.js';
 import { authenticateApiKey } from '../middlewares/auth.middleware.js';
+import { validateClientOwnershipByApiKey } from '../middlewares/tenant-ownership.middleware.js';
 import { ROUTES_TEXT } from '../constant/ROUTES_TEXT.js';
 
 const router = Router();
 
-router.post(ROUTES_TEXT.messageRoute.sendInvoice, async (req, res) => { 
+router.post(ROUTES_TEXT.messageRoute.sendInvoice, validateClientOwnershipByApiKey, async (req, res) => {
     try {
-        const { clientId: bodyClientId, numero, cliente, pdfUrl, nombreEmpresa, mensaje } = req.body;
+        const { numero, cliente, pdfUrl, nombreEmpresa, mensaje } = req.body;
 
         if (!numero || !pdfUrl || !cliente || !nombreEmpresa) {
             return res.status(400).json({ 
@@ -17,7 +18,7 @@ router.post(ROUTES_TEXT.messageRoute.sendInvoice, async (req, res) => {
             });
         }
 
-        const clientId = bodyClientId || req.clientId || SYSTEM_CONFIG.DEFAULT_CLIENT_ID; 
+        const clientId = req.clientId;
 
         await processAndSendInvoice(clientId, { numero, cliente, pdfUrl, nombreEmpresa, mensaje });
 
@@ -39,13 +40,7 @@ router.post(ROUTES_TEXT.messageRoute.sendInvoice, async (req, res) => {
 
 router.post(ROUTES_TEXT.messageRoute.initSession, (req, res) => {
     try {
-        const { clientId } = req.body;
-        if (!clientId) {
-            return res.status(400).json({ 
-                success: false, 
-                error: API_RESPONSES.initSession.missingClientId 
-            });
-        }
+        const clientId = req.clientId;
 
         const session = startTenantSession(clientId);
         return res.json({ success: true, status: session.status });
@@ -56,7 +51,16 @@ router.post(ROUTES_TEXT.messageRoute.initSession, (req, res) => {
 
 router.get(ROUTES_TEXT.messageRoute.status, (req, res) => {
     try {
-        const { clientId } = req.params;
+        const { clientId: requestedClientId } = req.params;
+        const clientId = req.clientId;
+
+        if (requestedClientId && requestedClientId !== clientId) {
+            return res.status(403).json({
+                success: false,
+                error: API_RESPONSES.authMiddleware.invalidKey
+            });
+        }
+
         const session = checkTenantStatus(clientId);
 
         if (!session) {

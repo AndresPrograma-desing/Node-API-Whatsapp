@@ -54,6 +54,8 @@ export const API_RESPONSES = {
     authMiddleware: {
         missingKey: "Acceso denegado. Falta la cabecera 'x-api-key'.",
         invalidKey: "API Key inválida o suspendida.",
+        missingClientIdBody: "El campo 'clientId' es obligatorio en el body para esta operación.",
+        clientMismatch: "El 'clientId' enviado no pertenece al API Key autenticado.",
         serverError: "Error en la capa de autenticación."
     }
 
