@@ -8,9 +8,9 @@ const router = Router();
 
 router.post(ROUTES_TEXT.messageRoute.sendInvoice, async (req, res) => { 
     try {
-        const { clientId: bodyClientId, numero, cliente, pdfUrl, nombreEmpresa, mensaje } = req.body;
+        const { clientId: bodyClientId, numero, cliente, url: url, nombreEmpresa, mensaje } = req.body;
 
-        if (!numero || !pdfUrl || !cliente || !nombreEmpresa) {
+        if (!numero || !url || !cliente || !nombreEmpresa) {
             return res.status(400).json({ 
                 success: false, 
                 error: API_RESPONSES.invoiceController.missingParameters 
@@ -19,7 +19,7 @@ router.post(ROUTES_TEXT.messageRoute.sendInvoice, async (req, res) => {
 
         const clientId = bodyClientId || req.clientId || SYSTEM_CONFIG.DEFAULT_CLIENT_ID; 
 
-        await processAndSendInvoice(clientId, { numero, cliente, pdfUrl, nombreEmpresa, mensaje });
+        await processAndSendInvoice(clientId, { numero, cliente, url: url, nombreEmpresa, mensaje });
 
         return res.json({
             success: true,
