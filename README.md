@@ -63,8 +63,20 @@ Si deseas contribuir al proyecto, por favor sigue estos pasos:
 - `GET /clients`: Obtiene una lista de los clientes conectados
 - `POST /register-tenant`: Registra un nuevo tenant en la base de datos
 
-##Postman
+## Postman
 Puedes importar la colección de Postman para probar los endpoints de la API. La colección se encuentra en el archivo `POSTMAN/collection.json` del repositorio.
+
+### Actualización del API 28-05-2026
+ 
+  Se han realizado mejoras en la generación de facturas en formato PDF, incluyendo la adición de nuevos campos y una mejor presentación visual. Además, se ha actualizado la documentación para reflejar estos cambios y proporcionar ejemplos claros de cómo utilizar esta funcionalidad.
+  
+## Creacion de PDF
+La API también incluye una funcionalidad para generar facturas en formato PDF utilizando la biblioteca `pdfkit`. Puedes encontrar un ejemplo de cómo utilizar esta funcionalidad en el archivo `test-pdf.js`. Este archivo muestra cómo crear una factura con datos de ejemplo y guardarla como un archivo PDF.
+
+Para ejecutar el archivo `test-pdf.js`, asegúrate de tener las dependencias necesarias instaladas y luego ejecuta el siguiente comando en la terminal:
+```bash
+node test-pdf.js
+```
 
 ## Mas información
 Para más detalles sobre cómo utilizar la API, puedes consultar la documentación adicional en el repositorio o contactar al desarrollador.
@@ -78,4 +90,5 @@ Para más detalles sobre cómo utilizar la API, puedes consultar la documentaci�
     DATE: 2024-05-23
 ## Extra
   Ejecuta el archivo index.html que se encuantra en la ruta public\document\web\index.html para escanear el codigo QR que te devuelva el api
+
 ## final del README.md

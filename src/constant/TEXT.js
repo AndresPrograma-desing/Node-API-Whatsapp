@@ -22,7 +22,7 @@ export const SYSTEM_CONFIG = {
 
 export const API_RESPONSES = {
     invoiceController: {
-        missingParameters: "Faltan parámetros obligatorios (numero, cliente, pdfUrl o nombreEmpresa).",
+        missingParameters: "Faltan parámetros obligatorios (numero, cliente, Url o nombreEmpresa).",
         sendSuccess: "Mensaje de texto personalizado y PDF entregados de forma exitosa.",
         fetchError: "No se pudo descargar el archivo desde la URL. Status: ",
         serverError: "Error interno al procesar el envío en el servidor."
@@ -94,7 +94,11 @@ export const MANAGER_RESPONSES = {
         browserError: "Error interno en la ejecución del navegador remoto."
     }
 };
+export const INVOICE_GENERATOR = {
+        footer: "Documento generado por WSMessage API. Visita nuestro repositorio en GitHub: " + SYSTEM_CONFIG.DEVELOPER_GITHUB_URL,
 
+        
+}
 export function getText(key, data = {}) {
     const { name, companyName, message } = data;
 
