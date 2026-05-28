@@ -29,7 +29,7 @@ const clearChromiumLocks = async (clientIdRaw) => {
         for (const lockPath of lockPaths) {
             await rm(lockPath, { force: true });
         }
-        console.log(`[${WSM}] [${clientId}] Candados de Chromium removidos.`);
+        console.log(`[${WSM}] [${clientId}] Candados de Chromium removidos de forma preventiva.`);
     } catch (err) {
         console.warn(`[${WSM}] [${clientId}] Advertencia al limpiar candados:`, err.message);
     }
@@ -153,7 +153,9 @@ export const initSession = (clientIdRaw) => {
     });
 
     const initializeWithRecovery = async () => {
-        try {
+        try { 
+            await clearChromiumLocks(clientId);
+           
             await clientInstance.initialize();
         } catch (err) {
             console.error(`[${WSM}] [${clientId}] ${MANAGER_RESPONSES.whatsappManager.iniatializeError}`, err.message);
