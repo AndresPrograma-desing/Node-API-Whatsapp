@@ -9,9 +9,11 @@ const router = Router();
 
 router.post(ROUTES_TEXT.messageRoute.sendInvoice, validateClientOwnershipByApiKey, async (req, res) => {
     try {
-        const { numero, cliente, pdfUrl, nombreEmpresa, mensaje } = req.body;
+        // Añadimos 'invoiceData' a la desestructuración del body
+        const { numero, cliente, Url, nombreEmpresa, mensaje, invoiceData } = req.body;
 
-        if (!numero || !pdfUrl || !cliente || !nombreEmpresa) {
+        // NUEVA VALIDACIÓN HÍBRIDA: Ahora exige (Url O invoiceData) además de los campos obligatorios
+        if (!numero || !cliente || !nombreEmpresa || (!Url && !invoiceData)) {
             return res.status(400).json({ 
                 success: false, 
                 error: API_RESPONSES.invoiceController.missingParameters 
@@ -20,11 +22,13 @@ router.post(ROUTES_TEXT.messageRoute.sendInvoice, validateClientOwnershipByApiKe
 
         const clientId = req.clientId;
 
-        await processAndSendInvoice(clientId, { numero, cliente, pdfUrl, nombreEmpresa, mensaje });
+        // Capturamos el resultado del servicio, ya que si es una factura autogenerada, nos devolverá el link de descarga
+        const result = await processAndSendInvoice(clientId, { numero, cliente, Url, nombreEmpresa, mensaje, invoiceData }, req);
 
         return res.json({
             success: true,
-            message: `${API_RESPONSES.invoiceController.sendSuccess} desde la instancia ${clientId}`
+            message: `${API_RESPONSES.invoiceController.sendSuccess} desde la instancia ${clientId}`,
+            ...result // Si contiene downloadUrl, se inyectará automáticamente aquí de manera limpia
         });
 
     } catch (error) {
@@ -108,4 +112,4 @@ router.get(ROUTES_TEXT.messageRoute.clientList, authenticateApiKey, async (req, 
     }
 });
 
-export default router;    
+export default router;

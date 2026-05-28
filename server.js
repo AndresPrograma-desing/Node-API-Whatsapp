@@ -6,6 +6,8 @@ import { authenticateApiKey } from './src/middlewares/auth.middleware.js';
 import { initSession } from './src/services/whatsapp.manager.js';
 import { getAllClients } from './src/config/database.js'; 
 import { SYSTEM_CONFIG } from './src/constant/TEXT.js';
+import appSettings from './config/appsettings.json' with { type: 'json' };
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT || 3002;
@@ -16,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/WSMessage', authenticateApiKey, routerMedicos);
 app.use('/api/WSMessage/tenants', routerTenants); 
+app.use('/pdf', express.static(path.resolve(`./${appSettings.pdfSettings.folderName}`)));
 
 
 app.listen(PORT, async () => {
